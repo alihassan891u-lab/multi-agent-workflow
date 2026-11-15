@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Inbox · Agent Console{% endblock %}
+{% block head %}
+<style>
+  .head{display:flex;align-items:center;gap:14px;margin-bottom:18px}.head h1{margin:0;font-size:22px}
+  .head form{margin-left:auto}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+  .stat{padding:16px 18px}.stat span{color:var(--muted);font-size:12px}.stat b{display:block;font-size:26px;margin-top:2px}
+  table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle}tr:last-child td{border:0}
+  td .n{font-weight:600}td .e{color:var(--muted);font-size:12px}a.row{color:inherit;text-decoration:none;font-weight:600;color:var(--brand)}
+  .score{font-weight:700;font-variant-numeric:tabular-nums}
+</style>
+{% endblock %}
+{% block body %}
+<div class="head"><h1>Inbound leads</h1><span class="badge b-hot">processed by agents</span>
+  <form method="post" action="/process"><button class="primary">Process inbox</button></form></div>
+<div class="stats">
+  <div class="card stat"><span>Needs your approval</span><b>{{ counts['Needs approval'] }}</b></div>
+  <div class="card stat"><span>Replies sent</span><b>{{ counts['Sent'] }}</b></div>
+  <div class="card stat"><span>Archived (not a fit)</span><b>{{ counts['Archived'] }}</b></div>
+  <div class="card stat"><span>Rejected by human</span><b>{{ counts['Rejected'] }}</b></div>
+</div>
+<div class="card">
+<table>
+  <tr><th>Lead</th><th>Subject</th><th>Category</th><th>Score</th><th>Status</th><th></th></tr>
+  {% for r in runs %}{% set s = r.state %}
+  <tr>
+    <td><div class="n">{{ s.lead.from_name }}</div><div class="e">{{ s.research.company.name if s.research and s.research.company.found else s.lead.from_email }}</div></td>
+    <td>{{ s.lead.subject }}<div class="e">{{ s.lead.id }} · {{ s.lead.received }}</div></td>
+    <td>{{ s.intake.category_name }}<div class="e">{{ (s.intake.confidence*100)|round|int }}% confidence</div></td>
+    <td><span class="score">{{ s.qualification.score }}</span> <span class="badge b-{{ 'hot' if s.qualification.tier=='hot' else 'warm' if s.qualification.tier=='warm' else 'low' }}">{{ s.qualification.tier }}</span></td>
+    <td><span class="badge {{ {'Needs approval':'b-approve','Sent':'b-sent','Archived':'b-arch','Rejected':'b-rej'}[r.label] }}">{{ r.label }}</span></td>
+    <td><a class="row" href="/run/{{ r.run_id }}">Open →</a></td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+{% endblock %}

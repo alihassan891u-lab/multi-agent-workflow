@@ -1,0 +1,23 @@
+[
+  {
+    "id": "rag-chatbot",
+    "service": "ai_chatbot",
+    "title": "RAG chatbot trained on company docs",
+    "text": "customer support chatbot answering from company documents knowledge base pdf faq with citations guardrails hybrid search",
+    "proof": "found the right source in the top 3 for 100% of a held-out test set, with 89% answer accuracy"
+  },
+  {
+    "id": "mcp-crm",
+    "service": "ai_integration",
+    "title": "MCP server connecting Claude to a CRM",
+    "text": "claude llm integration crm database api tools mcp server approvals audit log",
+    "proof": "has 8 typed tools with human approval and audit logging, and 30/30 end-to-end tests passing"
+  },
+  {
+    "id": "multi-agent",
+    "service": "automation",
+    "title": "Multi-agent lead-to-proposal workflow",
+    "text": "automation workflow agents email crm follow up leads classification drafting review approval",
+    "proof": "uses agents to classify, research, qualify and draft replies, with a reviewer agent and human approval before sending"
+  }
+]

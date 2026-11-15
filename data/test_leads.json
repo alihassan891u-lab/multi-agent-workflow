@@ -1,0 +1,43 @@
+[
+ {"label": "ai_chatbot", "budget": 8000, "timeline_weeks": 6, "text": "Our clinic gets the same 50 questions by email. Could an assistant answer them from our patient guides? Budget around $8,000 and we'd like it live in 6 weeks."},
+ {"label": "ai_chatbot", "budget": null, "timeline_weeks": null, "text": "Is it possible to have an AI that reads our product manuals and answers dealer questions in a chat?"},
+ {"label": "ai_chatbot", "budget": 12000, "timeline_weeks": 8, "text": "We'd like a multilingual support assistant on our site that knows our return policy and order status. $12k budget, two months."},
+ {"label": "ai_chatbot", "budget": 5000, "timeline_weeks": null, "text": "Interested in a bot for Messenger that handles booking questions for our gym. Have about 5000 USD."},
+ {"label": "ai_chatbot", "budget": null, "timeline_weeks": 4, "text": "Employees keep asking IT the same things. Want a helpdesk assistant in Teams fed by our IT docs, ideally within 4 weeks."},
+ {"label": "ai_chatbot", "budget": 20000, "timeline_weeks": 10, "text": "Insurance company here. We need an agent-facing assistant that answers coverage questions from our policy library. Budget $20,000, 10 weeks."},
+
+ {"label": "voice_agent", "budget": 6000, "timeline_weeks": 3, "text": "Plumbing business, we lose jobs when nobody picks up. Need something that answers calls and books jobs. Can spend $6,000, need it in 3 weeks."},
+ {"label": "voice_agent", "budget": null, "timeline_weeks": null, "text": "Do you build AI that can make calls to remind patients of their appointments?"},
+ {"label": "voice_agent", "budget": 15000, "timeline_weeks": 6, "text": "Property management firm. Tenants call about maintenance at all hours; we want an AI to take the call, log the issue and escalate emergencies. ~$15k, 6 weeks."},
+ {"label": "voice_agent", "budget": 4000, "timeline_weeks": 2, "text": "Small salon. Want a phone bot that books appointments into our calendar. Budget 4k, 2 weeks."},
+ {"label": "voice_agent", "budget": null, "timeline_weeks": 5, "text": "Our car dealership wants an AI to call web leads right away and set test drives. Target launch in 5 weeks."},
+ {"label": "voice_agent", "budget": 9000, "timeline_weeks": null, "text": "Looking for an after-hours answering agent for a law firm intake line, budget $9,000."},
+
+ {"label": "automation", "budget": 3500, "timeline_weeks": 2, "text": "Every morning someone downloads orders from email attachments and types them into our ERP. Can this be automated? $3,500 budget, 2 weeks."},
+ {"label": "automation", "budget": null, "timeline_weeks": null, "text": "We use HubSpot, Typeform and Gmail. Want new signups enriched and assigned to reps automatically."},
+ {"label": "automation", "budget": 7000, "timeline_weeks": 4, "text": "Accounting firm. Need receipts and bank statements pulled from clients' emails, categorized and put in folders. $7k, 4 weeks."},
+ {"label": "automation", "budget": 2500, "timeline_weeks": null, "text": "Want an n8n flow that posts new blog articles to LinkedIn and X with AI captions. Budget $2,500."},
+ {"label": "automation", "budget": null, "timeline_weeks": 3, "text": "Recruiting agency: candidates email CVs, we need them screened and logged in our tracker automatically, within 3 weeks."},
+ {"label": "automation", "budget": 10000, "timeline_weeks": 6, "text": "Logistics company. Delivery exceptions come in by email and need to be classified and routed to the right desk. Budget $10,000, timeline 6 weeks."},
+
+ {"label": "ml_analytics", "budget": 25000, "timeline_weeks": 12, "text": "Retail chain wants to forecast weekly demand per SKU to cut stockouts. $25,000, 12 weeks."},
+ {"label": "ml_analytics", "budget": null, "timeline_weeks": null, "text": "Could you build a model that predicts which members will cancel their subscription next month?"},
+ {"label": "ml_analytics", "budget": 18000, "timeline_weeks": 8, "text": "Factory needs cameras to spot scratches on parts automatically. Budget 18k, 8 weeks."},
+ {"label": "ml_analytics", "budget": 9500, "timeline_weeks": 6, "text": "Fintech startup: want to flag suspicious transactions with machine learning before approval. $9,500 for an MVP in 6 weeks."},
+ {"label": "ml_analytics", "budget": null, "timeline_weeks": 4, "text": "Marketplace wants better 'you may also like' suggestions using purchase history, in about 4 weeks."},
+ {"label": "ml_analytics", "budget": 6000, "timeline_weeks": null, "text": "Hotel group wants to analyze thousands of guest reviews and track sentiment by location. $6,000."},
+
+ {"label": "ai_integration", "budget": 8000, "timeline_weeks": 4, "text": "We have a project management SaaS and want an AI feature that writes task summaries and next steps. $8k, 4 weeks."},
+ {"label": "ai_integration", "budget": null, "timeline_weeks": null, "text": "Can Claude be connected to our Postgres database so managers can ask questions about sales?"},
+ {"label": "ai_integration", "budget": 14000, "timeline_weeks": 6, "text": "Healthcare platform: integrate an LLM to draft visit notes from structured data, HIPAA-aware setup. $14,000 over 6 weeks."},
+ {"label": "ai_integration", "budget": 3000, "timeline_weeks": 2, "text": "Add an AI rewrite button to our email editor using the OpenAI API. Budget $3,000, 2 weeks."},
+ {"label": "ai_integration", "budget": null, "timeline_weeks": 3, "text": "Our internal tool needs tool-calling so an LLM can open tickets and update statuses through our API, ideally in 3 weeks."},
+ {"label": "ai_integration", "budget": 11000, "timeline_weeks": null, "text": "E-commerce platform wants semantic product search with embeddings inside the existing app. Budget $11,000."},
+
+ {"label": "not_fit", "budget": null, "timeline_weeks": null, "text": "Hello sir, I want internship in your company, I know Python basics."},
+ {"label": "not_fit", "budget": null, "timeline_weeks": null, "text": "Get 10,000 Instagram followers today for only $49!"},
+ {"label": "not_fit", "budget": 200, "timeline_weeks": null, "text": "Need flyers designed for my yard sale, budget $200."},
+ {"label": "not_fit", "budget": null, "timeline_weeks": null, "text": "Your domain is expiring, renew now to avoid losing your website."},
+ {"label": "not_fit", "budget": null, "timeline_weeks": 1, "text": "Looking for a videographer to film our product launch event next week."},
+ {"label": "not_fit", "budget": null, "timeline_weeks": null, "text": "Can someone help me move house this weekend?"}
+]

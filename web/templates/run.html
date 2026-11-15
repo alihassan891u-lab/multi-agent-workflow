@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{{ s.lead.id }} · Agent Console{% endblock %}
+{% block head %}
+<style>
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:16px}.head h1{margin:0;font-size:20px}.head .e{color:var(--muted)}
+  .graph{padding:14px 16px;margin-bottom:16px}
+  .grid{display:grid;grid-template-columns:1fr 520px;gap:16px}
+  .step{display:grid;grid-template-columns:24px 120px 1fr 70px;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+  .step:last-child{border:0}.dot{width:12px;height:12px;border-radius:50%;margin-top:4px;background:var(--brand)}
+  .dot.int{background:#f59e0b}.dot.err{background:var(--red)}
+  .step b{font-family:'DejaVu Sans Mono',monospace;font-size:13px}.step .sum{color:#3f3f46;line-height:1.45}.step .ms{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+  .pane{padding:18px}.mail{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .mail .hd{padding:10px 14px;background:var(--gray-soft);font-size:12px;color:#3f3f46;line-height:1.6}
+  textarea{width:100%;border:0;padding:14px;font:inherit;font-size:13.5px;line-height:1.55;min-height:330px;resize:vertical;outline:none}
+  .checks{margin-top:14px}.chk{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;padding:5px 0}
+  .chk .v{font-weight:700;min-width:26px}.ok{color:var(--green)}.no{color:var(--red)}
+  .actions{display:flex;gap:10px;margin-top:14px}
+  .reasons{margin:0;padding-left:18px;color:#3f3f46;font-size:12.5px;line-height:1.6}
+  .msg{background:var(--gray-soft);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;color:#3f3f46;margin-bottom:12px}
+</style>
+{% endblock %}
+{% block body %}
+<div class="head"><h1>{{ s.lead.from_name }} · {{ s.lead.subject }}</h1>
+  <span class="badge {{ {'Needs approval':'b-approve','Sent':'b-sent','Archived':'b-arch','Rejected':'b-rej'}.get(status,'b-arch') }}">{{ status }}</span>
+  <span class="e mono">run {{ run.run_id }}</span></div>
+
+<div class="card graph">
+  <h3>Agent graph</h3>
+  <svg viewBox="0 0 1100 235" width="100%" height="210">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a1a1aa"/></marker></defs>
+    {% for a, b in edges %}{% set p = nodes[a] %}{% set q = nodes[b] %}
+      {% if p[1] == q[1] %}<line x1="{{ p[0]+62 }}" y1="{{ p[1] }}" x2="{{ q[0]-64 }}" y2="{{ q[1] }}" stroke="#a1a1aa" stroke-width="1.6" marker-end="url(#ar)"/>
+      {% else %}<line x1="{{ p[0] }}" y1="{{ p[1]+22 }}" x2="{{ q[0] }}" y2="{{ q[1]-24 }}" stroke="#a1a1aa" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#ar)"/>{% endif %}
+    {% endfor %}
+    <path d="M 710 73 C 690 38, 570 38, 550 73" fill="none" stroke="{{ '#7c3aed' if revisions else '#d4d4d8' }}" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#ar)"/>
+    <text x="630" y="30" text-anchor="middle" font-size="11" fill="{{ '#7c3aed' if revisions else '#a1a1aa' }}">revise ({{ revisions }})</text>
+    {% for name, xy in nodes.items() %}
+      {% set cur = run.next_node == name and run.status == 'interrupted' %}
+      {% set fill = '#fef3c7' if cur else ('#7c3aed' if name in visited else '#fff') %}
+      {% set txt = '#92400e' if cur else ('#fff' if name in visited else '#a1a1aa') %}
+      <rect x="{{ xy[0]-62 }}" y="{{ xy[1]-22 }}" width="124" height="44" rx="11" fill="{{ fill }}" stroke="{{ '#f59e0b' if cur else ('#7c3aed' if name in visited else '#d4d4d8') }}" stroke-width="1.5"/>
+      <text x="{{ xy[0] }}" y="{{ xy[1]+5 }}" text-anchor="middle" font-size="13" font-weight="600" font-family="DejaVu Sans Mono, monospace" fill="{{ txt }}">{{ name }}</text>
+    {% endfor %}
+    <text x="870" y="139" text-anchor="middle" font-size="11" fill="#b45309">pauses here for a human</text>
+  </svg>
+</div>
+
+<div class="grid">
+  <div>
+    <div class="card pane" style="margin-bottom:16px">
+      <h3>Inbound message</h3>
+      <div class="msg">{{ s.lead.body }}</div>
+      <h3>Agent trace</h3>
+      {% for st in run.trace %}
+      <div class="step"><span class="dot {{ 'int' if st.status=='interrupted' else 'err' if st.status=='error' else '' }}"></span><b>{{ st.node }}</b><span class="sum">{{ st.summary }}</span><span class="ms">{{ '%.2f'|format(st.ms) }} ms</span></div>
+      {% endfor %}
+    </div>
+    <div class="card pane"><h3>Qualifier reasoning · score {{ s.qualification.score }}</h3>
+      <ul class="reasons">{% for r in s.qualification.reasons %}<li>{{ r }}</li>{% endfor %}</ul></div>
+  </div>
+
+  <div class="card pane">
+    {% if s.draft %}
+    <h3>Draft reply · v{{ s.draft.version }} {% if s.draft.edited_by_human %}· edited by human{% endif %}</h3>
+    <form method="post" action="/run/{{ run.run_id }}/decide">
+      <div class="mail"><div class="hd">To: {{ s.lead.from_name }} &lt;{{ s.lead.from_email }}&gt;<br>Subject: {{ s.draft.subject }}</div>
+        <textarea name="edited_body" {{ '' if run.status=='interrupted' else 'readonly' }}>{{ s.draft.body }}</textarea></div>
+      <div class="checks"><h3>Reviewer agent</h3>
+        {% for h in s.review_history %}
+          <div class="chk"><span class="v {{ 'ok' if h.passed else 'no' }}">v{{ h.version }}</span>
+            <span>{% if h.passed %}<span class="ok">Passed all checks</span>: grounded prices and timelines, no unverifiable claims, personalised, clear call-to-action, {{ h.words }} words.
+            {% else %}{% for i in h.issues %}<span class="no">{{ i.code }}</span>: {{ i.message }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endif %}</span></div>
+        {% endfor %}
+      </div>
+      {% if run.status == 'interrupted' %}
+      <div class="actions"><button class="primary" name="action" value="approve">Approve &amp; send</button><button name="action" value="reject">Reject</button></div>
+      {% elif s.actions %}
+      <div class="chk" style="margin-top:12px"><span class="v ok">✓</span><span>Sent · saved {{ s.actions.email_file }} · CRM status {{ s.actions.crm_status }} · follow-up task {{ s.actions.follow_up }}</span></div>
+      {% endif %}
+    </form>
+    {% else %}
+    <h3>No reply drafted</h3><p style="color:var(--muted)">The intake agent classified this message as not a fit, so it was archived without a reply.</p>
+    {% endif %}
+  </div>
+</div>
+<script>document.querySelectorAll("textarea").forEach(t=>{t.style.height=(t.scrollHeight+4)+"px"})</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+{
+  "train_examples": 72,
+  "test_examples": 36,
+  "classifier": {
+    "test_accuracy": 0.972,
+    "test_macro_f1": 0.972,
+    "cv5_train_accuracy": 0.72,
+    "labels": [
+      "ai_chatbot",
+      "voice_agent",
+      "automation",
+      "ml_analytics",
+      "ai_integration",
+      "not_fit"
+    ],
+    "confusion_matrix": [
+      [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        6,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        6
+      ]
+    ],
+    "errors": [
+      {
+        "text": "Factory needs cameras to spot scratches on parts automatically. Budget 18k, 8 weeks.",
+        "true": "ml_analytics",
+        "pred": "automation"
+      }
+    ]
+  },
+  "extraction": {
+    "budget_accuracy": 1.0,
+    "timeline_accuracy": 1.0
+  },
+  "workflow": {
+    "leads_run": 36,
+    "reached_human_review": 31,
+    "archived": 5,
+    "drafts_passing_review_first_time": 1.0,
+    "avg_revisions": 0,
+    "avg_ms_per_lead": 3.66
+  },
+  "reviewer": {
+    "corrupted_drafts": 186,
+    "caught": 186,
+    "catch_rate": 1.0,
+    "by_type": {
+      "invented_price": "31/31",
+      "invented_timeline": "31/31",
+      "guarantee_claim": "31/31",
+      "missing_name": "31/31",
+      "missing_company": "31/31",
+      "missing_cta": "31/31"
+    }
+  }
+}

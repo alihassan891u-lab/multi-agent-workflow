@@ -1,0 +1,72 @@
+{
+  "ai_chatbot": {
+    "service": "AI chatbot (RAG on your documents)",
+    "price_from": 4000,
+    "price_to": 12000,
+    "weeks": "3-6",
+    "deliverables": [
+      "Knowledge base ingestion and hybrid search",
+      "Chat widget or WhatsApp/Slack channel",
+      "Source citations and guardrails",
+      "Evaluation report on your real questions"
+    ],
+    "pitch": "an AI chatbot trained on your documents",
+    "short": "AI chatbot"
+  },
+  "voice_agent": {
+    "service": "AI voice agent",
+    "price_from": 3500,
+    "price_to": 10000,
+    "weeks": "2-5",
+    "deliverables": [
+      "Inbound or outbound call flows",
+      "Calendar and CRM booking",
+      "Call summaries and transcripts",
+      "Escalation to staff for urgent calls"
+    ],
+    "pitch": "an AI voice agent",
+    "short": "AI voice agent"
+  },
+  "automation": {
+    "service": "AI workflow automation",
+    "price_from": 2000,
+    "price_to": 8000,
+    "weeks": "2-4",
+    "deliverables": [
+      "Process mapping of current manual steps",
+      "n8n / Make workflows with AI steps",
+      "Error alerts and audit log",
+      "Handover video and documentation"
+    ],
+    "pitch": "an AI workflow automation",
+    "short": "workflow automation"
+  },
+  "ml_analytics": {
+    "service": "Machine learning model",
+    "price_from": 6000,
+    "price_to": 25000,
+    "weeks": "4-10",
+    "deliverables": [
+      "Data audit and baseline",
+      "Model training and evaluation",
+      "Deployment on AWS with monitoring",
+      "Dashboard for business users"
+    ],
+    "pitch": "a machine learning model",
+    "short": "machine learning"
+  },
+  "ai_integration": {
+    "service": "LLM / MCP integration",
+    "price_from": 3000,
+    "price_to": 14000,
+    "weeks": "2-6",
+    "deliverables": [
+      "Integration design and security review",
+      "LLM features or MCP tools in your product",
+      "Prompt and cost optimization",
+      "Tests and documentation"
+    ],
+    "pitch": "an LLM / MCP integration",
+    "short": "LLM integration"
+  }
+}
